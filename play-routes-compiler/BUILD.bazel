@@ -16,7 +16,7 @@ scala_binary(
 
 # Must end in -SNAPSHOT if this is a snapshot release (i.e. if this shouldn't deploy to Maven Central)
 # Do not rename this field
-version = "0.1"
+version = "0.2-SNAPSHOT"
 
 pom_file(
   name = "pom",

@@ -31,7 +31,7 @@ else
 fi
 
 # Deploy to maven
-echo "Deploying $deploy_jar to $url"
+echo "Deploying $artifactId-$version to $url"
 mvn -e --fail-at-end gpg:sign-and-deploy-file \
 	-Dfile="$deploy_jar" \
 	-DpomFile="$pom_file" \
