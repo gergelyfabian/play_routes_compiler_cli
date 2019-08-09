@@ -40,6 +40,7 @@ after_success:
       echo "Skipped publishing."
       echo "Travis Tag: $TRAVIS_TAG"
       echo "TRAVIS_SECURE_ENV_VARS: $TRAVIS_SECURE_ENV_VARS"
+      cat /home/travis/.travis/functions
     fi
 deploy:
   - provider: releases
