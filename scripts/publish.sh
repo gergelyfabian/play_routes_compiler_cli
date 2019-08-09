@@ -12,7 +12,7 @@ deploy_jar="bazel-out/k8-fastbuild/bin/play-routes-compiler/play-routes-compiler
 pom_file="bazel-out/k8-fastbuild/bin/play-routes-compiler/pom.xml"
 
 artifactId="play-routes-compiler-cli"
-version=$(cat play-routes-compiler/BUILD.bazel | egrep "^version" | awk -F '"' '{print $2}')
+version=$(cat $(bazel info output_base)/external/compiler-cli-version/version.bzl | awk -F '"' '{print $2}')
 source_jar="temp/$artifactId-$version-sources.jar"
 javadoc_jar="temp/$artifactId-$version-javadoc.jar"
 
