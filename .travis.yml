@@ -33,7 +33,7 @@ script:
   - ./test/run_all_tests.sh ci
 after_success:
   - |
-    if [ "$TRAVIS_SECURE_ENV_VARS" == true && -n "$TRAVIS_TAG" ]; then
+    if [ "$TRAVIS_SECURE_ENV_VARS" == true && ! -z "$TRAVIS_TAG" ]; then
       echo "$PGP_SECRET" | base64 --decode | gpg --import
       bash scripts/publish.sh
     else
