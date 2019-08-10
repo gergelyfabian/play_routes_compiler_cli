@@ -16,6 +16,7 @@ if [ -z "$version" ]; then
   exit 1
 fi
 
+# some change
 deploy_jar="bazel-out/k8-fastbuild/bin/play-routes-compiler/play-routes-compiler_deploy.jar"
 pom_file="bazel-out/k8-fastbuild/bin/play-routes-compiler/pom.xml"
 
