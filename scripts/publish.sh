@@ -37,7 +37,7 @@ fi
 
 # Deploy to maven
 echo "Deploying $artifactId-$version to $url"
-mvn -e --fail-at-end gpg:sign-and-deploy-file \
+mvn -e --fail-never gpg:sign-and-deploy-file \
 	-Dfile="$deploy_jar" \
 	-DpomFile="$pom_file" \
 	-DrepositoryId="oss-sonatype-org" \
