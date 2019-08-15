@@ -39,6 +39,7 @@ gpg -ab "$pom_file"
 gpg -ab "$javadoc_jar"
 gpg -ab "$source_jar"
 
+# some change
 # Deploy to maven
 echo "Deploying $artifactId:$version to $url"
 mvn deploy:deploy-file \
