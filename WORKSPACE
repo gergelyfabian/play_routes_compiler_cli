@@ -1,6 +1,7 @@
 workspace(name = "play_routes_compiler_cli")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 # rules_jvm_external
 RULES_JVM_EXTERNAL_TAG = "3.3"
@@ -43,6 +44,25 @@ scala_repositories()
 load("@annex//:defs.bzl", annex_pinned_maven_install = "pinned_maven_install")
 annex_pinned_maven_install()
 scala_register_toolchains()
+
+# For Maven Publishing 2.0
+skylib_version = "1.0.3"
+http_archive(
+    name = "bazel_skylib",
+    sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
+    type = "tar.gz",
+    url = "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/{}/bazel-skylib-{}.tar.gz".format(skylib_version, skylib_version),
+)
+
+
+graknlabs_bazel_distribution_version = "ebb4660cff37574876d37bf7c498bd735155554f"
+http_archive(
+    name = "graknlabs_bazel_distribution",
+    sha256 = "c3181786d2544a7df54bcf326d5e40e6ec0b86dbc6c42e58d40f8c2c2225859f",
+    strip_prefix = "bazel-distribution-{}".format(graknlabs_bazel_distribution_version),
+    type = "zip",
+    url = "https://github.com/graknlabs/bazel-distribution/archive/{}.zip".format(graknlabs_bazel_distribution_version),
+)
 
 # Protobuf
 protobuf_version = "3.9.0"
