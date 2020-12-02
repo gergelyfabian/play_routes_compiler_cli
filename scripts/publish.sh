@@ -10,19 +10,20 @@ if [ -z "$artifactId" ] || [ -z "$version" ]; then
 fi
 
 # Fail early if the version doesn't match the regex enforced by graknlabs
-if [[ ! $version =~ ^[0-9]+.[0-9]+.[0-9]+(-[a-zA-Z0-9]+)?$ ]]; then
-
-  # Open issue: https://github.com/graknlabs/bazel-distribution/issues/230
-  if [[ $version =~ .*-SNAPSHOT$ ]]; then
-    echo "SNAPSHOT deployments are not currently supported."
-  fi
-
-  echo "The version must match the following regex: ^[0-9]+.[0-9]+.[0-9]+(-[a-zA-Z0-9]+)?$"
+if [[ ! $version =~ ^[0-9]+.[0-9]+.[0-9]+(-[a-zA-Z0-9]+)?$|^[0-9|a-f|A-F]{40}$|.*-SNAPSHOT$ ]]; then
+  echo "The version must match the following regex: ^[0-9]+.[0-9]+.[0-9]+(-[a-zA-Z0-9]+)?$|^[0-9|a-f|A-F]{40}$|.*-SNAPSHOT$"
   exit 1
+fi
+
+if [[ $version =~ .*-SNAPSHOT$ ]]; then
+  echo "Doing a snapshot release"
+  releaseType="snapshot"
+else
+  releaseType="release"
 fi
 
 # Build and deploy package
 bazel clean --expunge
-bazel run //play-routes-compiler:deploy-maven --define version=$version -- release --gpg
+bazel run //play-routes-compiler:deploy-maven --define version=$version -- $releaseType --gpg
 
 echo "Deployment complete."

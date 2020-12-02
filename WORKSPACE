@@ -66,10 +66,10 @@ http_archive(
     url = "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/{}/bazel-skylib-{}.tar.gz".format(skylib_version, skylib_version),
 )
 
-graknlabs_bazel_distribution_version = "ebb4660cff37574876d37bf7c498bd735155554f"
+graknlabs_bazel_distribution_version = "c9d23abd64352f2d7f0290db825892db25390121"
 http_archive(
     name = "graknlabs_bazel_distribution",
-    sha256 = "c3181786d2544a7df54bcf326d5e40e6ec0b86dbc6c42e58d40f8c2c2225859f",
+    sha256 = "6c396c10c74513c199d5a37a9ec17771cf7f73458f67448f638d047a2e0e3d47",
     strip_prefix = "bazel-distribution-{}".format(graknlabs_bazel_distribution_version),
     type = "zip",
     url = "https://github.com/graknlabs/bazel-distribution/archive/{}.zip".format(graknlabs_bazel_distribution_version),
