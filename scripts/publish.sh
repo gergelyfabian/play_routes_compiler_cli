@@ -9,15 +9,13 @@ if [ -z "$artifactId" ] || [ -z "$version" ]; then
   exit 1
 fi
 
-# If the version is a commit hash, do a snapshot release (i.e. if tag is <id>--<sha>)
-if [[ $version =~ ^[0-9|a-f|A-F]{40}$ ]]; then
-	release_type="snapshot"
-else
-	release_type="release"
+# Open issue: https://github.com/graknlabs/bazel-distribution/issues/230
+if [[ $version =~ .*SNAPSHOT$ ]]; then
+	echo "SNAPSHOT deployments are not currently supported."
 fi
 
-# Build package
+# Build and deploy package
 bazel clean --expunge
-bazel run //play-routes-compiler:deploy-maven --define version=$version -- $release_type --gpg
+bazel run //play-routes-compiler:deploy-maven --define version=$version -- release --gpg
 
 echo "Deployment complete."
