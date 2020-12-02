@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -e
 ##
 ## Build and deploy the play routes compiler jar
 
@@ -9,7 +9,7 @@ if [ -z "$artifactId" ] || [ -z "$version" ]; then
   exit 1
 fi
 
-# If the tag is a commit hash, do a snapshot release
+# If the version is a commit hash, do a snapshot release (i.e. if tag is <id>--<sha>)
 if [[ $version =~ ^[0-9|a-f|A-F]{40}$ ]]; then
 	release_type="snapshot"
 else
