@@ -15,7 +15,8 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm install -g @bazel/bazelisk
       - run: cat .bazelrc.travis >> .bazelrc
-      - run: ./test/run_all_tests.sh ci
+      # TODO: build/test
+      #- run: ./test/run_all_tests.sh ci
   
   publish:
     runs-on: ubuntu-18.04
@@ -34,6 +35,10 @@ jobs:
             version=$(awk -F '--' '{print $2}' <<< $tag)
             echo "COMPILER_CLI_ARTIFACT_ID=$artifact_id" >> $GITHUB_ENV
             echo "COMPILER_CLI_VERSION=$version" >> $GITHUB_ENV
+      - name: Import gpg keys
+        run: echo "$PGP_SECRET" | base64 --decode | gpg --import
+        env:
+          PGP_SECRET: ${{ secrets.PGP_SECRET }}
       - name: "Publish to Maven"
         env:
           DEPLOY_MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
